@@ -16,7 +16,7 @@ NOTIFY_NUMBER="+132132132132"
 mkdir -p ~/.signal-monitoring && cd ~/.signal-monitoring
 
 function log {
-	echo "$1" >> ~/.signal-monitoring/log
+	echo $(date "+%Y-%m-%d %H:%M:%S: ") "$1" >> ~/.signal-monitoring/log
 }
 
 # arguments: notify_text
