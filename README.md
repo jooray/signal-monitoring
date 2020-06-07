@@ -12,14 +12,21 @@ First, install and configure [signal-cli](https://github.com/AsamK/signal-cli)
 Then modify script and configure your sending number, recipient number and
 optionally path to java. I add PATH to signal-cli and java commands as well.
 
-Then at the bottom of the script, configure ping checks and URL string match
-checks.
+Then at the bottom of the script, configure ping checks, URL string match
+checks and successful ssh (key) authentication.
 
-check_ping takes one argument, which is the name of the server
+**check_ping** takes one argument, which is the name of the server
 
-check_url takes three arguments: "check identificator" (can be anything recognizable that can be a part of filename, such as hostname), URL and string to look for on the web page.
+**check_url** takes three arguments: "check identificator" (can be anything recognizable
+that can be a part of filename, such as hostname), URL and string to look for on the web page.
 
-The last signal-cli command just downloads all messages for this instance and
+**check_ssh** takes three arguments: username, hostname a optional port (otherwise it's 22).
+Make sure that ssh key authentication is working, because it does not simply check for open
+port, but if the authentication succeeds. It only needs to be able to run echo command, or
+you can configure the shell to just print "ssh_connection_ok" on stdout. It does not need
+to be able to execute any other commands.
+
+The last **signal-cli** command just downloads all messages for this instance and
 drops them. Use this if this script is the only user using this server to
 ease up storage requirements for signal servers and make sure that it does not
 store too much (encrypted) messages for you.

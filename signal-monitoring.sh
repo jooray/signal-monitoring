@@ -21,7 +21,7 @@ function log {
 
 # arguments: notify_text
 function notify {
-	echo $1 | signal-cli -u ${SIGNAL_USER} send $NOTIFY_NUMBER
+	echo $1 | signal-cli -u ${SIGNAL_USER} send $NOTIFY_NUMBER > /dev/null
 	log "Sending notification ${1}"
 }
 
@@ -81,6 +81,24 @@ function check_url {
 			fi
 }
 
+# argument: username hostname port
+function check_ssh {
+    username=$1
+    hostname=$2
+    port="${3:-22}"
+
+    status=$(ssh -o BatchMode=yes -o ConnectTimeout=5 ${username}@${hostname} -p ${port} echo ssh_connection_ok 2>&1)
+
+    if [[ $status == "ssh_connection_ok" ]] ; then
+			check_passed ${username}-${hostname}-${port}-ssh "${username}@${hostname}:${port} SSH is up"
+    elif echo $status | grep -q "Permission denied" ; then
+			check_failed ${username}-${hostname}-${port}-ssh "${username}@${hostname}:${port} SSH returned permission denied: ${status}"
+    else
+			check_failed ${username}-${hostname}-${port}-ssh "${username}@${hostname}:${port} SSH is down: ${status}"
+    fi
+}
+
+
 # here are the checks
 
 # check pings
@@ -89,6 +107,8 @@ check_ping my-second.server.com
 
 check_url my-first.server.com "https://my-first.server.com/url/index.html" "Welcome to My First Server"
 check_url my-third.server.com "https://my-third.server.com/index.html" "Welcome to My Third Server"
+
+check_ssh "johnpb27" "my-ssh.server.com" 22
 
 # Leave this if you don't use signal-cli outside of this script,
 # otherwise comment out, see readme
