@@ -81,6 +81,21 @@ function check_url {
 			fi
 }
 
+# arguments: check_name command
+# warning: no sanitization and script
+function check_script {
+		check_name=$1
+    shift
+		OUTPUT=$( "$@" 2>&1)
+    ERR=$?
+		if [ $ERR -eq 0 ]
+			then
+				check_passed ${check_name} "${check_name} UP: $OUTPUT"
+			else
+				check_failed ${check_name} "${check_name} DOWN: $OUTPUT"
+			fi
+}
+
 # argument: username hostname port
 function check_ssh {
     username=$1
