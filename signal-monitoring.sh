@@ -36,7 +36,7 @@ function check_passed {
 	if [ -f ${check_filename} ]
 		then
 			rm -f $check_filename
-			notify "${description}"
+			notify "✅ ${description}"
 		fi
 }
 
@@ -52,7 +52,7 @@ function check_failed {
 	if [ -z "$FOUND" ]
 	  then # we don't have recent notification (60 minutes)
 		echo "${description}" > "${check_filename}"
-		notify "${description}"
+		notify "❌ ${description}"
 	  fi
 }
 
