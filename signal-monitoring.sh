@@ -125,6 +125,8 @@ check_url my-third.server.com "https://my-third.server.com/index.html" "Welcome 
 
 check_ssh "johnpb27" "my-ssh.server.com" 22
 
+check_script "alliswell" "/usr/local/bin/is-all-well"
+
 # Leave this if you don't use signal-cli outside of this script,
 # otherwise comment out, see readme
 signal-cli -u $SIGNAL_USER receive > /dev/null 2>&1

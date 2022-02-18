@@ -26,6 +26,10 @@ port, but if the authentication succeeds. It only needs to be able to run echo c
 you can configure the shell to just print "ssh_connection_ok" on stdout. It does not need
 to be able to execute any other commands.
 
+**check_script** takes a check identificator as the first parameter and the rest are
+executed (warning, no sanity checking, we expect no user input coming to this). If the script
+returns an error status, it failed (exit status >0)
+
 The last **signal-cli** command just downloads all messages for this instance and
 drops them. Use this if this script is the only user using this server to
 ease up storage requirements for signal servers and make sure that it does not
