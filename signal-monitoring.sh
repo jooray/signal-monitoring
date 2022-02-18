@@ -21,7 +21,7 @@ function log {
 
 # arguments: notify_text
 function notify {
-	echo $1 | signal-cli -u ${SIGNAL_USER} send $NOTIFY_NUMBER > /dev/null
+	echo "$1" | signal-cli -u ${SIGNAL_USER} send $NOTIFY_NUMBER > /dev/null
 	log "Sending notification ${1}"
 }
 
