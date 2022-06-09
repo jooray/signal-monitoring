@@ -13,6 +13,7 @@ NOTIFY_NUMBER="+132132132132"
 
 # now go to the bottom of the script and specify the checks
 
+export LC_ALL="en_US.utf8" # This makes emojis work - an UTF-8 locale
 mkdir -p ~/.signal-monitoring && cd ~/.signal-monitoring
 
 function log {
