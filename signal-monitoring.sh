@@ -74,7 +74,7 @@ function check_url {
 		check_name="$1"
 		url="$2"
 		content_to_look_for="$3"
-		if wget -q -O - "${url}" | grep "${content_to_look_for}" > /dev/null 2>&1
+		if wget --server-response=off -q -O - "${url}" | grep "${content_to_look_for}" > /dev/null 2>&1
 			then
 				check_passed "${check_name}-url" "${check_name} UP: ${url} now contains ${content_to_look_for}"
 			else
