@@ -30,6 +30,11 @@ to be able to execute any other commands.
 executed (warning, no sanity checking, we expect no user input coming to this). If the script
 returns an error status, it failed (exit status >0)
 
+**attempts** tries a check more times before notifying. Good for checks that sometimes fail,
+but it is not a big deal, if it works in a few seconds/minutes. attempts tries number_of_attempts
+times, with sleep_between_attempts seconds between intervals (these are the first two arguments)
+and the rest is just a normal check call.
+
 The last **signal-cli** command just downloads all messages for this instance and
 drops them. Use this if this script is the only user using this server to
 ease up storage requirements for signal servers and make sure that it does not
