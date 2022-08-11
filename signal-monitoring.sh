@@ -16,6 +16,11 @@ NOTIFY_NUMBER="+132132132132"
 export LC_ALL="en_US.utf8" # This makes emojis work - an UTF-8 locale
 mkdir -p ~/.signal-monitoring && cd ~/.signal-monitoring
 
+##### CHECKING ENGINE
+
+# just a sane global default
+notify_on_failures=1
+
 function log {
 	echo $(date "+%Y-%m-%d %H:%M:%S: ") "$1" >> ~/.signal-monitoring/log
 }
@@ -39,6 +44,8 @@ function check_passed {
 			rm -f "${check_filename}"
 			notify "✅ ${description}"
 		fi
+
+  return 0
 }
 
 # arguments: check_name description
@@ -52,11 +59,50 @@ function check_failed {
 	FOUND=`find ~/.signal-monitoring -mmin -60 -name "${check_filename}" -not -empty -print`
 	if [ -z "$FOUND" ]
 	  then # we don't have recent notification (60 minutes)
-		echo "${description}" > "${check_filename}"
-		notify "❌ ${description}"
+    if [ $notify_on_failures == 1 ]
+        then
+		        echo "${description}" > "${check_filename}"
+        		notify "❌ ${description}"
+        else
+            log "check_failed notification not sent, will retry first"
+        fi
 	  fi
+
+  return 1
 }
 
+# arguments: attempts number_of_attempts sleep_time check_script_to_call check_arguments
+# example attempts 3 60 check_ping my-first.server.com
+function attempts {
+    number_of_attempts="$1"
+    sleep_time="$2"
+    check_script_to_call="$3"
+    # check_arguments are $4 and on
+
+    for attempt in `seq 1 ${number_of_attempts}`
+    do
+        if [ "${attempt}" == "${number_of_attempts}" ]
+        then
+            notify_on_failures=1
+        else
+            notify_on_failures=0
+        fi
+
+        if "$check_script_to_call" "${@:4}"
+        then
+            notify_on_failures=1
+            return 0
+        else
+            if [ "${notify_on_failures}" != 1 ]
+                then
+                    log "Will retry in ${sleep_time}s"
+                    sleep $sleep_time
+                fi
+        fi
+    done
+}
+
+##### SERVICE CHECK IMPLEMENTATIONS
 
 # argument: hostname
 function check_ping {
@@ -119,10 +165,10 @@ function check_ssh {
 
 # check pings
 check_ping my-first.server.com
-check_ping my-second.server.com
+attempts 3 60 check_ping my-second.server.com
 
 check_url my-first.server.com "https://my-first.server.com/url/index.html" "Welcome to My First Server"
-check_url my-third.server.com "https://my-third.server.com/index.html" "Welcome to My Third Server"
+attempts 2 30 check_url my-third.server.com "https://my-third.server.com/index.html" "Welcome to My Third Server"
 
 check_ssh "johnpb27" "my-ssh.server.com" 22
 
