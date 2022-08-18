@@ -56,7 +56,7 @@ function check_failed {
 
 	log "check_failed ${check_name} ${description}"
 
-	FOUND=`find ~/.signal-monitoring -mmin -60 -name "${check_filename}" -not -empty -print`
+	FOUND=$(find ~/.signal-monitoring -mmin -60 -name "${check_filename}" -not -empty -print)
 	if [ -z "$FOUND" ]
 	  then # we don't have recent notification (60 minutes)
     if [ $notify_on_failures == 1 ]
@@ -79,7 +79,7 @@ function attempts {
     check_script_to_call="$3"
     # check_arguments are $4 and on
 
-    for attempt in `seq 1 ${number_of_attempts}`
+    for attempt in $(seq 1 ${number_of_attempts})
     do
         if [ "${attempt}" == "${number_of_attempts}" ]
         then
