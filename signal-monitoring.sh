@@ -27,7 +27,7 @@ function log {
 
 # arguments: notify_text
 function notify {
-	echo "$1" | signal-cli -u "${SIGNAL_USER}" send "${NOTIFY_NUMBER}" > /dev/null
+	signal-cli -a "${SIGNAL_USER}" send "${NOTIFY_NUMBER}" -m "$1" > /dev/null
 	log "Sending notification ${1}"
 }
 
@@ -176,4 +176,4 @@ check_script "alliswell" "/usr/local/bin/is-all-well"
 
 # Leave this if you don't use signal-cli outside of this script,
 # otherwise comment out, see readme
-signal-cli -u $SIGNAL_USER receive > /dev/null 2>&1
+signal-cli -a $SIGNAL_USER receive > /dev/null 2>&1
