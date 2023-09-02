@@ -28,6 +28,7 @@ function log {
 # arguments: notify_text
 function notify {
 	signal-cli -a "${SIGNAL_USER}" send "${NOTIFY_NUMBER}" -m "$1" > /dev/null
+  matrix-commander --log-level ERROR ERROR -m "$1"
 	log "Sending notification ${1}"
 }
 

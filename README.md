@@ -1,6 +1,8 @@
 # signal-monitoring
 
-This program is for simple server monitoring and notifications with signal-cli.
+This program is for simple server monitoring and notifications with signal-cli
+and/or matrix-commander.
+
 It's goal is to be able to run on supersimple servers, like NAS, raspberry pi,
 home routers, etc.
 
@@ -44,6 +46,48 @@ store too much (encrypted) messages for you.
 
 Run it from cron or task scheduler of your OS. Please refer to the documentation
 of your OS.
+
+## Matrix support
+
+Install [matrix-commander](https://github.com/8go/matrix-commander) using python. Login
+with 
+
+```
+matrix-commander --login password # password is a string, not your password
+```
+
+It will ask you for the device name, I use server name, so I know where the notification
+came from.
+
+It will also ask you for the room name, it is best if it already created and has both
+this user and the user that needs to access the messages in the room already.
+
+Then verify your device keys with other device (such element):
+
+```
+matrix-commander --verify emoji
+```
+
+After you are done, move config and store to correct directories:
+
+```
+mkdir -p ~/.local/share/matrix-commander/ ~/.config/matrix-commander/
+mv store ~/.local/share/matrix-commander/
+mv credentials.json ~/.config/matrix-commander/
+```
+
+Try sending a message:
+
+```
+matrix-commander -m "Hello from Matrix commander"
+```
+
+The message will go to the default room you configured in the first place.
+
+If you are done, make sure matrix-commander is in the path for the script and uncomment
+the matrix-commander line in notify function (alternatively comment the two signal-cli
+lines in the script - the one above matrix-commander and the receive at the end of the
+script).
 
 ## Why this project
 
