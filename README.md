@@ -49,6 +49,10 @@ of your OS.
 
 ## Matrix support
 
+I added Matrix protocol support, because Signal now sometimes asks for
+CAPTCHAs and I would really like to get notifications even if Signal descides
+for CAPTCHA.
+
 Install [matrix-commander](https://github.com/8go/matrix-commander) using python. Login
 with 
 
