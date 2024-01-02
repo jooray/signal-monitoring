@@ -5,13 +5,25 @@
 # order for signal-cli to work
 #export JAVA_HOME=/var/packages/Java8/target/j2sdk-image/jre
 
+### For Signal
 # username of the sending entity (phone number in international format)
 SIGNAL_USER="+1123123123123"
 
 # phone number of the user that receives the notification
 NOTIFY_NUMBER="+132132132132"
 
-# now go to the bottom of the script and specify the checks
+
+### For LXMF-Notify (reticulum, sideband)
+LXMF_DESTINATION="12312312312312312312312312312312"
+# display name of your identity
+LXMF_NAME="LXMF bot signal-monitoring"
+# propagation node (optional)
+LXMF_PROPAGATION="32112312312312312312312312312312"
+
+# now go to the notify function below, choose which notification mechanism
+# to use.
+
+# Then go bottom of the script and specify the checks
 
 export LC_ALL="en_US.utf8" # This makes emojis work - an UTF-8 locale
 mkdir -p ~/.signal-monitoring && cd ~/.signal-monitoring
@@ -27,8 +39,12 @@ function log {
 
 # arguments: notify_text
 function notify {
+    # Signal CLI
 	signal-cli -a "${SIGNAL_USER}" send "${NOTIFY_NUMBER}" -m "$1" > /dev/null
-  matrix-commander --log-level ERROR ERROR -m "$1"
+    # Matrix
+    #matrix-commander --log-level ERROR ERROR -m "$1"
+    # LXMF / Reticulum / Sideband
+    #echo "$1" | LXMF-NotifyBot.py "${LXMF_DESTINATION}" "${LXMF_NAME}" "${LXMF_PROPAGATION}" > /dev/null
 	log "Sending notification ${1}"
 }
 

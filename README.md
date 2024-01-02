@@ -1,15 +1,14 @@
 # signal-monitoring
 
-This program is for simple server monitoring and notifications with signal-cli
-and/or matrix-commander.
+This program is for simple server monitoring and notifications with signal-cli, [matrix-commander](https://github.com/8go/matrix-commander) or through LXMF ([Reticulum mesh network](https://reticulum.network/)).
 
 It's goal is to be able to run on supersimple servers, like NAS, raspberry pi,
 home routers, etc.
 
 ## Setup
 
-First, install and configure [signal-cli](https://github.com/AsamK/signal-cli)
-(or replace script in notify function for different kind of notification).
+First, if you want to use signal-cli, install and configure [signal-cli](https://github.com/AsamK/signal-cli) (or uncomment the right part in notify function for different kind of notification -
+matrix-commander or LXMF-notify, see below).
 
 Then modify script and configure your sending number, recipient number and
 optionally path to java. I add PATH to signal-cli and java commands as well.
@@ -51,7 +50,7 @@ of your OS.
 
 I added Matrix protocol support, because Signal now sometimes asks for
 CAPTCHAs and I would really like to get notifications even if Signal descides
-for CAPTCHA.
+it wants to ask for CAPTCHA.
 
 Install [matrix-commander](https://github.com/8go/matrix-commander) using python. Login
 with 
@@ -92,6 +91,22 @@ If you are done, make sure matrix-commander is in the path for the script and un
 the matrix-commander line in notify function (alternatively comment the two signal-cli
 lines in the script - the one above matrix-commander and the receive at the end of the
 script).
+
+## LXMF / Reticulum / Sideband
+
+Reticulum is immensly cool. It is a mesh network that is medium agnostic, encrypted
+by default. The reason I am using it is that I want to be able to receive a notification
+even if my internet connection is down. The network will find a way, for example through
+LoRA. If my phone is online and I have more than one interface, it will find a way to deliver
+the message to my phone by itself. So this is the most resilient way to deliver the
+message that should work regardless on how the infrastructure works. If you are on home
+wifi, it will even deliver it locally if autointerface is configured in reticulum.
+
+It works by using [my command-line LXMF notify bot](https://github.com/jooray/lxmf-message).
+
+You need to install and configure [Sideband](https://github.com/markqvist/Sideband) on your phone,
+get the address. You can also use a propagation node, where the message is stored if you are not
+online.
 
 ## Why this project
 
