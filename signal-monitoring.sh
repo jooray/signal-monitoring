@@ -20,6 +20,10 @@ LXMF_NAME="LXMF bot signal-monitoring"
 # propagation node (optional)
 LXMF_PROPAGATION="32112312312312312312312312312312"
 
+### For simplex-chat command-line utility
+# Nickname of already connected user (use /c)
+SIMPLEX_DESTINATION="nickname"
+
 # now go to the notify function below, choose which notification mechanism
 # to use.
 
@@ -45,6 +49,8 @@ function notify {
     #matrix-commander --log-level ERROR ERROR -m "$1"
     # LXMF / Reticulum / Sideband
     #echo "$1" | LXMF-NotifyBot.py "${LXMF_DESTINATION}" "${LXMF_NAME}" "${LXMF_PROPAGATION}" > /dev/null
+    # SimpleX
+    #simplex-chat -e "@${SIMPLEX_DESTINATION} ${1}"
 	log "Sending notification ${1}"
 }
 
