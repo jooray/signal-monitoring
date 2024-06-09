@@ -1,6 +1,6 @@
 # signal-monitoring
 
-This program is for simple server monitoring and notifications with signal-cli, [matrix-commander](https://github.com/8go/matrix-commander) or through LXMF ([Reticulum mesh network](https://reticulum.network/)).
+This program is for simple server monitoring and notifications with signal-cli, [matrix-commander](https://github.com/8go/matrix-commander), through LXMF ([Reticulum mesh network](https://reticulum.network/)), or [simplex-chat](https://github.com/simplex-chat/simplex-chat/blob/stable/docs/CLI.md).
 
 It's goal is to be able to run on supersimple servers, like NAS, raspberry pi,
 home routers, etc.
@@ -8,7 +8,7 @@ home routers, etc.
 ## Setup
 
 First, if you want to use signal-cli, install and configure [signal-cli](https://github.com/AsamK/signal-cli) (or uncomment the right part in notify function for different kind of notification -
-matrix-commander or LXMF-notify, see below).
+matrix-commander, LXMF-notify, or simplex-chat - see below).
 
 Then modify script and configure your sending number, recipient number and
 optionally path to java. I add PATH to signal-cli and java commands as well.
@@ -107,6 +107,27 @@ It works by using [my command-line LXMF notify bot](https://github.com/jooray/lx
 You need to install and configure [Sideband](https://github.com/markqvist/Sideband) on your phone,
 get the address. You can also use a propagation node, where the message is stored if you are not
 online.
+
+## simplex-chat
+
+SimpleX is another cool messenger. You can run your own server, it is not
+dependant on single infrastructure provider, anyone can run a node, but it is
+highly secure.
+
+We can use [command-line version](https://github.com/simplex-chat/simplex-chat/blob/stable/docs/CLI.md).
+After installation, you need to choose a display name and connect to profile
+that should receive notifications (using /c command). After you are connected,
+write nickname into 
+
+```
+SIMPLEX_DESTINATION="nickname"
+```
+
+If something does not work, the command that should work is:
+
+```
+simplex-chat -e '@nickname This is a test'
+```
 
 ## Why this project
 
