@@ -50,7 +50,7 @@ function notify {
     # LXMF / Reticulum / Sideband
     #echo "$1" | LXMF-NotifyBot.py "${LXMF_DESTINATION}" "${LXMF_NAME}" "${LXMF_PROPAGATION}" > /dev/null
     # SimpleX
-    #simplex-chat -e "@${SIMPLEX_DESTINATION} ${1}" > /dev/null
+    #(simplex-chat -e "@${SIMPLEX_DESTINATION} ${1}" -t 10 > /dev/null) &
 	log "Sending notification ${1}"
 }
 

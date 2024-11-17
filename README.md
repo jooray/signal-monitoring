@@ -126,7 +126,7 @@ SIMPLEX_DESTINATION="nickname"
 If something does not work, the command that should work is:
 
 ```
-simplex-chat -e '@nickname This is a test'
+simplex-chat -e '@nickname This is a test' -t 10
 ```
 
 ## Why this project
