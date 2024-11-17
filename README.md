@@ -115,18 +115,29 @@ dependant on single infrastructure provider, anyone can run a node, but it is
 highly secure.
 
 We can use [command-line version](https://github.com/simplex-chat/simplex-chat/blob/stable/docs/CLI.md).
-After installation, you need to choose a display name and connect to profile
-that should receive notifications (using /c command). After you are connected,
-write nickname into 
+After installation, you need to choose a display name and connect to a user or group
+that should receive notifications. Use the /c command to connect to a user, or the /g
+command to connect to a group. After you are connected, write the nickname or group name
+into the configuration file, prefixing it with @ for users or # for groups:
 
 ```
-SIMPLEX_DESTINATION="nickname"
+SIMPLEX_DESTINATION="@nickname"  # for users
+```
+or
+```
+SIMPLEX_DESTINATION="#groupname"  # for groups
 ```
 
-If something does not work, the command that should work is:
+If something does not work, the command that should work for sending to a user is:
 
 ```
 simplex-chat -e '@nickname This is a test' -t 10
+```
+
+For sending to a group, use:
+
+```
+simplex-chat -e '#groupname This is a test' -t 10
 ```
 
 ## Why this project

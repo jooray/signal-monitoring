@@ -21,8 +21,15 @@ LXMF_NAME="LXMF bot signal-monitoring"
 LXMF_PROPAGATION="32112312312312312312312312312312"
 
 ### For simplex-chat command-line utility
-# Nickname of already connected user (use /c)
-SIMPLEX_DESTINATION="nickname"
+# Nickname of already connected user (use /c) or group (use /g)
+# Prefix user with @ and group with #
+
+SIMPLEX_DESTINATION="@nickname"
+
+# Time to wait for Simplex - this needs to be long enough to send the message to
+# the relay. See: https://github.com/simplex-chat/simplex-chat/issues/5196
+# The command is sent to background, so it won't block processing
+SIMPLEX_WAIT=10
 
 # now go to the notify function below, choose which notification mechanism
 # to use.
@@ -50,7 +57,7 @@ function notify {
     # LXMF / Reticulum / Sideband
     #echo "$1" | LXMF-NotifyBot.py "${LXMF_DESTINATION}" "${LXMF_NAME}" "${LXMF_PROPAGATION}" > /dev/null
     # SimpleX
-    #(simplex-chat -e "@${SIMPLEX_DESTINATION} ${1}" -t 10 > /dev/null) &
+    #(simplex-chat -e "${SIMPLEX_DESTINATION} ${1}" -t ${SIMPLEX_WAIT} > /dev/null) &
 	log "Sending notification ${1}"
 }
 
