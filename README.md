@@ -2,6 +2,22 @@
 
 This program is for simple server monitoring and notifications with signal-cli, [matrix-commander](https://github.com/8go/matrix-commander), through LXMF ([Reticulum mesh network](https://reticulum.network/)), or [simplex-chat](https://github.com/simplex-chat/simplex-chat/blob/stable/docs/CLI.md).
 
+<!-- jooray-links:start -->
+### More from me
+
+**Related projects**
+
+- [signal-summarizer](https://github.com/jooray/signal-summarizer): AI summaries of Signal groups, runnable locally
+- [signal-message-processor](https://github.com/jooray/signal-message-processor): process Signal group messages and attachments
+- [simple-signal-rest-send](https://github.com/jooray/simple-signal-rest-send): a simple REST API for sending Signal notifications
+- [ha-simplex](https://github.com/jooray/ha-simplex): SimpleX notifications for Home Assistant
+- [simplex-ws-docker](https://github.com/jooray/simplex-ws-docker): Docker image for the SimpleX chat WebSocket bot interface
+
+**Full project showcase:** [Signal Monitoring in my project showcase](https://juraj.bednar.io/showcase/#MSG-03), or [all my projects](https://juraj.bednar.io/showcase/).
+
+I write about building things on [my blog](https://juraj.bednar.io/en/blog-en/). I also wrote a cypherpunk novel, [Tamers of Entropy](https://tamersofentropy.net/), and there is a [trailer](https://tamersofentropy.net/#trailer).
+<!-- jooray-links:end -->
+
 It's goal is to be able to run on supersimple servers, like NAS, raspberry pi,
 home routers, etc.
 
